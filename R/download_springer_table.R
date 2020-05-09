@@ -12,7 +12,7 @@
 download_springer_table <-
   function(lan = 'eng',custString='') {
 
-    if (!(lan %in% c('eng', 'ger'))) { stop("'lan' should be either 'eng' or 'ger'.") }
+    if (!(lan %in% c('eng', 'ger', 'eng_cust'))) { stop("'lan' should be either 'eng' or 'ger'.") }
 
     `%>%` <- magrittr::`%>%`
 
