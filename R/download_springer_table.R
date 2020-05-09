@@ -10,7 +10,7 @@
 #' @export
 #'
 download_springer_table <-
-  function(lan = 'eng') {
+  function(lan = 'eng',custString='') {
 
     if (!(lan %in% c('eng', 'ger'))) { stop("'lan' should be either 'eng' or 'ger'.") }
 
@@ -21,6 +21,15 @@ download_springer_table <-
       books_list_url <- 'https://resource-cms.springernature.com/springer-cms/rest/v1/content/17858272/data/v5/'
       GET(books_list_url, write_disk(tf <- tempfile(fileext = ".xlsx")))
       springer_table <- read_excel(tf) %>%
+        clean_names()
+
+      }
+      # A hack for custom search strings, e.g. permitting parsing from a university address 
+    if (lan == 'eng_cust') {
+
+      books_list_url <- paste('https://link.springer.com/search/csv?facet-content-type=Book&showAll=false&query=',custString); 
+      GET(books_list_url, write_disk(tf <- tempfile(fileext = ".csv")))
+      springer_table <- read_csv(tf) %>%
         clean_names()
 
       }
