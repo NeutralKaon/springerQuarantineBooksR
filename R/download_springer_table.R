@@ -30,6 +30,7 @@ download_springer_table <-
       books_list_url <- paste('https://link.springer.com/search/csv?facet-content-type=Book&showAll=false&query=',custString); 
       GET(books_list_url, write_disk(tf <- tempfile(fileext = ".csv")))
       springer_table <- read_csv(tf) %>%
+	      rename(Book.Title = Item.Title) %>%
         clean_names()
 
       }
